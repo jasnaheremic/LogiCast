@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import NavbarBreadcrumbs from './NavbarBreadcrumbs';
 
 const Navbar = () => {
   return (
@@ -6,17 +7,17 @@ const Navbar = () => {
       sx={{
         height: '50px',
         backgroundColor: 'white',
-        boxShadow: 3,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         borderRadius: '10px',
         mx: '24px',
         my: '12px',
-        p: '16px'
+        p: '5px',
+        pl: '20px'
       }}
     >
-      BreadCrumb ovdje ide
+      <NavbarBreadcrumbs />
     </Box>
   );
 };

@@ -16,7 +16,7 @@ const Layout = ({ children }: LayoutProps) => {
         display: 'flex',
         height: '100vh',
         width: '100vw',
-        // backgroundColor: "gray",
+        backgroundColor: '#F3F3E0',
         overflow: 'hidden'
       }}
     >

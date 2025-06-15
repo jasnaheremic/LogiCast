@@ -1,8 +1,11 @@
 import { Avatar, Box, Button, Divider, Grid, Tooltip, Typography } from '@mui/material';
 
+import { useTranslation } from 'react-i18next';
 import SidebarItems from './SidebarItems';
 
 const Sidebar = () => {
+  const { t } = useTranslation();
+
   return (
     <Box
       sx={{
@@ -28,10 +31,7 @@ const Sidebar = () => {
             }
           }}
         >
-          <Typography>
-            {/*variant="subtitle2"*/}
-            LogiCast
-          </Typography>
+          <Typography>{t('title.logiCast')}</Typography>
         </Box>
       </Grid>
       <Box
@@ -53,11 +53,8 @@ const Sidebar = () => {
       >
         <Avatar sx={{ mr: '8px' }}>JD</Avatar>
         <Box sx={{ overflow: 'hidden' }}>
-          <Typography variant="body2">
-            {/* {userInfo?.employee.FirstName}*/}
-            Jane Doe
-          </Typography>
-          <Tooltip title="e mail" placement="left-start">
+          <Typography variant="body2">Jane Doe</Typography>
+          <Tooltip title="janedoe@email.com" placement="left-start">
             <Typography
               noWrap
               variant="caption"
@@ -66,7 +63,7 @@ const Sidebar = () => {
                 display: 'block'
               }}
             >
-              email
+              janedoe@email.com
             </Typography>
           </Tooltip>
         </Box>
@@ -86,7 +83,7 @@ const Sidebar = () => {
             pl: '4px'
           }}
         >
-          Sign Out
+          {t('buttons.signOut')}
         </Typography>
       </Button>
     </Box>

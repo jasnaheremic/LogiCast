@@ -14,7 +14,6 @@ const ContentArea = ({ children }: contentAreaProps) => {
         backgroundColor: 'white',
         display: 'flex',
         borderRadius: '10px',
-        boxShadow: 3,
         mx: '24px',
         my: '12px',
         p: '16px',
