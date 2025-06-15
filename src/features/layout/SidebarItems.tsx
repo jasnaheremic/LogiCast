@@ -18,29 +18,29 @@ const SidebarItems = () => {
   const selectedIndex = SIDEBAR_ITEMS.findIndex(item => item.path === `/${location.pathname.split('/')?.[1]}`);
 
   return (
-    <Grid sx={{ flex: 1, mt: "16px" }}>
+    <Grid sx={{ flex: 1, mt: '16px' }}>
       {SIDEBAR_ITEMS.map((item, index) => (
         <ListItemButton
           key={index}
           selected={selectedIndex === index}
           onClick={() => handleListItemClick(item.path)}
           sx={{
-            gap: "16px",
+            gap: '16px',
             justifyContent: 'flex-start',
             textTransform: 'none',
-            mb: "8px",
+            mb: '8px',
             borderRadius: '5px',
-            color: selectedIndex === index ? "white" : "grey",
-            backgroundColor: selectedIndex === index ? "black" : 'transparent',
+            color: selectedIndex === index ? 'white' : 'grey',
+            backgroundColor: selectedIndex === index ? 'black' : 'transparent',
             '&:hover': {
-              backgroundColor: "grey",
+              backgroundColor: 'grey',
               borderRadius: '5px'
             },
             '&.Mui-selected': {
-              color: "white",
-              backgroundColor: "black",
+              color: 'white',
+              backgroundColor: 'black',
               '&:hover': {
-                backgroundColor: "grey"
+                backgroundColor: 'grey'
               }
             }
           }}
@@ -48,7 +48,7 @@ const SidebarItems = () => {
           <ListItemIcon
             sx={{
               minWidth: 'auto',
-              color: selectedIndex === index ? "white" : "black"
+              color: selectedIndex === index ? 'white' : 'black'
             }}
           >
             {<item.icon />}
@@ -56,7 +56,7 @@ const SidebarItems = () => {
           <Typography
             sx={{
               letterSpacing: '0.15px',
-              color: selectedIndex === index ? "white" : "black"
+              color: selectedIndex === index ? 'white' : 'black'
             }}
             //variant={selectedIndex === index ? 'strong' : 'body1'}
           >

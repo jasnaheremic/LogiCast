@@ -1,40 +1,41 @@
-import { Box } from "@mui/material";
-import Sidebar from "./Sidebar";
-import type { ReactNode } from "react";
-import ContentArea from "./ContentArea";
-import Navbar from "./Navbar";
+import { Box } from '@mui/material';
+import Sidebar from './Sidebar';
+import ContentArea from './ContentArea';
+import Navbar from './Navbar';
+
+import type { ReactNode } from 'react';
 
 interface LayoutProps {
-    children?: ReactNode;
+  children?: ReactNode;
 }
 
-const Layout = ({children} : LayoutProps) => {
+const Layout = ({ children }: LayoutProps) => {
   return (
-   <Box
+    <Box
       sx={{
         display: 'flex',
         height: '100vh',
         width: '100vw',
-       // backgroundColor: "gray",
+        // backgroundColor: "gray",
         overflow: 'hidden'
       }}
     >
-          <Sidebar />
-          <Box
-            sx={{
-              flex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              height: '100vh',
-              minWidth: 0,
-              transition: 'width 0.3s ease'
-            }}
-          >
-            <Navbar />
-            <ContentArea>{children}</ContentArea>
-          </Box>
+      <Sidebar />
+      <Box
+        sx={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100vh',
+          minWidth: 0,
+          transition: 'width 0.3s ease'
+        }}
+      >
+        <Navbar />
+        <ContentArea>{children}</ContentArea>
+      </Box>
     </Box>
-  )
+  );
 };
 
 export default Layout;

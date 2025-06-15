@@ -1,12 +1,12 @@
-import { Outlet } from "react-router-dom"
-import Layout from "../features/layout"
+import { Outlet } from 'react-router-dom';
+import Layout from '../features/layout';
 
 const ProtectedRoute = () => {
-    return (
-        <Layout>
-            <Outlet />
-        </Layout>
-    )
-}
+  return (
+    <Layout>
+      <Outlet />
+    </Layout>
+  );
+};
 
 export default ProtectedRoute;
