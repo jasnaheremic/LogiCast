@@ -6,10 +6,10 @@ import type { WarehouseData } from '../../interfaces/Warehouse';
 interface AddWarehouseDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  onAdd: (data: WarehouseData) => void;
+  onAddWarehouse: (data: WarehouseData) => void;
 }
 
-const AddEditWarehouseDialog = ({ isOpen, onClose, onAdd }: AddWarehouseDialogProps) => {
+const AddEditWarehouseDialog = ({ isOpen, onClose, onAddWarehouse }: AddWarehouseDialogProps) => {
   const {
     control,
     handleSubmit,
@@ -19,12 +19,12 @@ const AddEditWarehouseDialog = ({ isOpen, onClose, onAdd }: AddWarehouseDialogPr
     defaultValues: {
       name: '',
       location: '',
-      maxCapacity: 0
+      maxCapacity: 100
     }
   });
 
   const handleFormSubmit = (data: WarehouseData) => {
-    onAdd(data);
+    onAddWarehouse(data);
     reset();
     onClose();
   };

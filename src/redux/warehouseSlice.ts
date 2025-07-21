@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { API_STATUS } from '../utils/constants';
-import { createWarehouseThunk } from './api/warehouse';
+import { createWarehouseThunk, fetchWarehouseById, fetchWarehouses } from './api/warehouse';
 import type { WarehouseData } from '../interfaces/Warehouse';
 
 interface WarehouseState {
@@ -24,7 +24,6 @@ const warehouseSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      // Create Warehouse
       .addCase(createWarehouseThunk.pending, state => {
         state.status = API_STATUS.LOADING;
       })
@@ -34,6 +33,27 @@ const warehouseSlice = createSlice({
         state.warehouses.unshift(newWarehouse);
       })
       .addCase(createWarehouseThunk.rejected, state => {
+        state.status = API_STATUS.FAILED;
+      })
+      .addCase(fetchWarehouses.pending, state => {
+        state.status = API_STATUS.LOADING;
+      })
+      .addCase(fetchWarehouses.fulfilled, (state, action) => {
+        state.status = API_STATUS.SUCCEEDED;
+        state.warehouses = action.payload;
+      })
+      .addCase(fetchWarehouses.rejected, state => {
+        state.status = API_STATUS.FAILED;
+      });
+    builder
+      .addCase(fetchWarehouseById.pending, state => {
+        state.status = API_STATUS.LOADING;
+      })
+      .addCase(fetchWarehouseById.fulfilled, (state, action) => {
+        state.status = API_STATUS.SUCCEEDED;
+        state.warehouses = action.payload;
+      })
+      .addCase(fetchWarehouseById.rejected, state => {
         state.status = API_STATUS.FAILED;
       });
   }
