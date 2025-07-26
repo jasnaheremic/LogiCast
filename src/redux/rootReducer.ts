@@ -1,8 +1,12 @@
 import { combineReducers, type Reducer } from '@reduxjs/toolkit';
 import warehouseReducer from './warehouseSlice';
+import categoryReducer from './categorySlice';
+import itemReducer from './itemSlice';
 
 const appReducer = combineReducers({
-  warehouses: warehouseReducer
+  warehouses: warehouseReducer,
+  categories: categoryReducer,
+  items: itemReducer
 });
 
 export type AppState = ReturnType<typeof appReducer>;

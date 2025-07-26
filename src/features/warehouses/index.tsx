@@ -6,7 +6,7 @@ import CustomButton from '../../components/customButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { createWarehouseThunk, fetchWarehouses } from '../../redux/api/warehouse';
 import AddEditWarehouseDialog from './AddEditWarehouseDialog';
-import WarehouseCard from './warehouseCard';
+import WarehouseCard from './WarehouseCard';
 import type { WarehouseData } from '../../interfaces/Warehouse';
 
 const Warehouse = () => {
