@@ -11,7 +11,9 @@ const ROUTES = {
 };
 
 const BACKEND_ROUTES = {
-  WAREHOUSES: '/api/warehouse'
+  WAREHOUSES: '/api/warehouse',
+  CATEGORIES: '/api/category',
+  ITEMS: '/api/item'
 };
 
 const API_STATUS = {

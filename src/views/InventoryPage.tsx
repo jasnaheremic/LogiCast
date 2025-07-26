@@ -1,11 +1,7 @@
-import { Box, Typography } from '@mui/material';
+import Inventory from '../features/inventory';
 
 const InventoryPage = () => {
-  return (
-    <Box>
-      <Typography>Inventory Page</Typography>
-    </Box>
-  );
+  return <Inventory />;
 };
 
 export default InventoryPage;
