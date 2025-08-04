@@ -6,6 +6,7 @@ import CustomButton from '../../components/customButton';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { createItemThunk, fetchItems } from '../../redux/api/item';
 import AddEditItemDialog from './AddEditItemDialog';
+import AllInventoryTable from './AllInventoryTable';
 import type { ItemData } from '../../interfaces/Item';
 
 const Item = () => {
@@ -49,13 +50,14 @@ const Item = () => {
         >
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography variant="h5">Inventory Management</Typography>
-            <Typography >Manage and track all warehouse inventory items</Typography>
+            <Typography>Manage and track all warehouse inventory items</Typography>
           </Box>
           <CustomButton onClick={handleButtonClick} variant="contained" color="primary" startIcon={<AddIcon />}>
             Add Item
           </CustomButton>
         </Box>
         <AddEditItemDialog isOpen={isDialogOpen} onClose={handleDialogClose} onAddItem={handleAddItem} />
+        <AllInventoryTable />
       </Box>
     </>
   );

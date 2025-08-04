@@ -9,7 +9,6 @@ const en = {
     pages: {
       dashboard: 'Dashboard',
       inventory: 'Inventory',
-      demand_prediction: 'Demand Prediction',
       warehouses: 'Warehouses'
     }
   }
