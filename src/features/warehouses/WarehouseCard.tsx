@@ -1,4 +1,6 @@
 import { CardContent, Card, Typography, CardActions, Button, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../utils/constants';
 import type { WarehouseData } from '../../interfaces/Warehouse';
 
 interface WarehouseCardProps {
@@ -6,6 +8,13 @@ interface WarehouseCardProps {
 }
 
 const WarehouseCard = ({ warehouse }: WarehouseCardProps) => {
+  const navigate = useNavigate();
+
+  const handleViewMore = () => {
+    const warehouseInventoryRoute = ROUTES.WAREHOUSE_INVENTORY.replace(':warehouseId', String(warehouse?.id));
+    navigate(warehouseInventoryRoute);
+  };
+
   return (
     <Box sx={{ width: '100%' }}>
       <Card sx={{ borderRadius: 2, boxShadow: 1, height: '100%' }}>
@@ -44,7 +53,7 @@ const WarehouseCard = ({ warehouse }: WarehouseCardProps) => {
           </Box>
         </CardContent>
         <CardActions sx={{ justifyContent: 'flex-end', p: 1 }}>
-          <Button size="small" variant="text" sx={{ fontSize: 12 }}>
+          <Button onClick={handleViewMore} size="small" variant="text" sx={{ fontSize: 12 }}>
             View More
           </Button>
         </CardActions>

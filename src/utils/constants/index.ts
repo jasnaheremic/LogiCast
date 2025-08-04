@@ -6,14 +6,16 @@ const ROUTES = {
   BASE_ROUTE: '/',
   DASHBOARD: '/dashboard',
   INVENTORY: '/inventory',
-  DEMAND_PREDICTION: '/demand-prediction',
-  WAREHOUSES: '/warehouses'
+  WAREHOUSES: '/warehouses',
+  WAREHOUSE_INVENTORY: `/warehouses/:warehouseId`
 };
 
 const BACKEND_ROUTES = {
   WAREHOUSES: '/api/warehouse',
+  WAREHOUSE_INVENTORY: (warehouseId: string) => `/api/inventory/${warehouseId}`,
   CATEGORIES: '/api/category',
-  ITEMS: '/api/item'
+  ITEMS: '/api/item',
+  INVENTORIES: '/api/inventory'
 };
 
 const API_STATUS = {
