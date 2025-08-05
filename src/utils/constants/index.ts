@@ -15,7 +15,8 @@ const BACKEND_ROUTES = {
   WAREHOUSE_INVENTORY: (warehouseId: string) => `/api/inventory/${warehouseId}`,
   CATEGORIES: '/api/category',
   ITEMS: '/api/item',
-  INVENTORIES: '/api/inventory'
+  INVENTORIES: '/api/inventory',
+  INVENTORY_OVERVIEW: 'api/inventory/overview'
 };
 
 const API_STATUS = {

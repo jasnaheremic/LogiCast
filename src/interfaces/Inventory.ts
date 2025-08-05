@@ -27,3 +27,10 @@ export interface InventoryItemsData {
   totalQuantity: number;
   totalPrice: number;
 }
+
+export interface InventoryDashboardData {
+  totalInventoryValue: number;
+  lowStockItemsCount: number;
+  totalCategoriesCount: number;
+  totalItemsCount: number;
+}

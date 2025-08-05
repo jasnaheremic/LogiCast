@@ -1,5 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createInventory, getAllInventory, getAllInventoryByWarehouseId } from '../../services/inventoryService';
+import {
+  createInventory,
+  getAllInventory,
+  getAllInventoryByWarehouseId,
+  getInventoryDashboardInfo
+} from '../../services/inventoryService';
 import type { InventoryData } from '../../interfaces/Inventory';
 
 export const createInventoryThunk = createAsyncThunk(
@@ -36,6 +41,19 @@ export const fetchAllInventory = createAsyncThunk(
   async (_: void, { rejectWithValue }) => {
     try {
       const data = await getAllInventory();
+
+      return data;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
+export const fetchInventoryDashboardInfo = createAsyncThunk(
+  'inventories/fetchInventoryDashboardInfo',
+  async (_: void, { rejectWithValue }) => {
+    try {
+      const data = await getInventoryDashboardInfo();
 
       return data;
     } catch (error) {

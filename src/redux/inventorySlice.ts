@@ -1,13 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { API_STATUS } from '../utils/constants';
-import { createInventoryThunk, fetchAllInventory, fetchAllInventoryByWarehouseId } from './api/inventory';
-import type { InventoryData, InventoryItemsData, WarehouseInventoryItemsData } from '../interfaces/Inventory';
+import {
+  createInventoryThunk,
+  fetchAllInventory,
+  fetchAllInventoryByWarehouseId,
+  fetchInventoryDashboardInfo
+} from './api/inventory';
+import type {
+  InventoryDashboardData,
+  InventoryData,
+  InventoryItemsData,
+  WarehouseInventoryItemsData
+} from '../interfaces/Inventory';
 
 interface InventoryState {
   inventories: InventoryData[];
   warehouseInventoryItems?: WarehouseInventoryItemsData[];
   allInventoryItems?: InventoryItemsData[];
+  inventoryDashboardInfo?: InventoryDashboardData;
   status: string;
 }
 
@@ -15,6 +26,7 @@ const initialState: InventoryState = {
   inventories: [],
   warehouseInventoryItems: [],
   allInventoryItems: [],
+  inventoryDashboardInfo: undefined,
   status: API_STATUS.IDLE
 };
 
@@ -59,6 +71,17 @@ const inventorySlice = createSlice({
         state.allInventoryItems = action.payload;
       })
       .addCase(fetchAllInventory.rejected, state => {
+        state.status = API_STATUS.FAILED;
+      });
+    builder
+      .addCase(fetchInventoryDashboardInfo.pending, state => {
+        state.status = API_STATUS.LOADING;
+      })
+      .addCase(fetchInventoryDashboardInfo.fulfilled, (state, action) => {
+        state.status = API_STATUS.SUCCEEDED;
+        state.inventoryDashboardInfo = action.payload;
+      })
+      .addCase(fetchInventoryDashboardInfo.rejected, state => {
         state.status = API_STATUS.FAILED;
       });
   }

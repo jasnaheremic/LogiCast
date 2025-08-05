@@ -31,3 +31,14 @@ export const getAllInventory = async () => {
 
   return response.json();
 };
+
+export const getInventoryDashboardInfo = async () => {
+  const response = await fetch(`${BACKEND_ROUTES.INVENTORY_OVERVIEW}`, {
+    method: 'GET',
+    headers: getHeaders()
+  });
+
+  const data = await response.json();
+
+  return data;
+};

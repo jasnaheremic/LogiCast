@@ -58,7 +58,6 @@ const SidebarItems = () => {
               letterSpacing: '0.15px',
               color: selectedIndex === index ? 'white' : 'black'
             }}
-            //variant={selectedIndex === index ? 'strong' : 'body1'}
           >
             {item.text}
           </Typography>
