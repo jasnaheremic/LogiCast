@@ -38,7 +38,9 @@ const AllInventoryTable = ({ onEdit, onDelete }: AllInventoryTableProps) => {
   useEffect(() => {
     dispatch(fetchAllInventory());
 
-    dispatch(fetchCategories());
+    if (!categories?.length) {
+      dispatch(fetchCategories());
+    }
   }, []);
 
   const filteredItems = allInventoryItems?.filter(item =>

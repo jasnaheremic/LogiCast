@@ -41,7 +41,9 @@ const WarehouseInventoryTable = ({ warehouseId, onEdit, onDelete }: WarehouseInv
       dispatch(fetchAllInventoryByWarehouseId(warehouseId));
     }
 
-    dispatch(fetchCategories());
+    if (!categories?.length) {
+      dispatch(fetchCategories());
+    }
   }, [warehouseId]);
 
   const filteredItems = warehouseInventoryItems?.filter(item =>

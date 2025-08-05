@@ -7,6 +7,7 @@ import { useAppDispatch } from '../../hooks/reduxHooks';
 import { createItemThunk, fetchItems } from '../../redux/api/item';
 import AddEditItemDialog from './AddEditItemDialog';
 import AllInventoryTable from './AllInventoryTable';
+import InventoryDashboardOverview from './InventoryDashboardOverview';
 import type { ItemData } from '../../interfaces/Item';
 
 const Item = () => {
@@ -56,6 +57,7 @@ const Item = () => {
             Add Item
           </CustomButton>
         </Box>
+        <InventoryDashboardOverview />
         <AddEditItemDialog isOpen={isDialogOpen} onClose={handleDialogClose} onAddItem={handleAddItem} />
         <AllInventoryTable />
       </Box>
