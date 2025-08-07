@@ -13,6 +13,7 @@ const ROUTES = {
 const BACKEND_ROUTES = {
   WAREHOUSES: '/api/warehouse',
   WAREHOUSE_INVENTORY: (warehouseId: string) => `/api/inventory/${warehouseId}`,
+  WAREHOUSE_CAPACITY: '/api/warehouse/top-capacity',
   CATEGORIES: '/api/category',
   ITEMS: '/api/item',
   INVENTORIES: '/api/inventory',

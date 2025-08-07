@@ -8,6 +8,7 @@ import { createItemThunk, fetchItems } from '../../redux/api/item';
 import AddEditItemDialog from './AddEditItemDialog';
 import AllInventoryTable from './AllInventoryTable';
 import InventoryDashboardOverview from './InventoryDashboardOverview';
+import WarehouseCapacityStatus from './WarehouseCapacityStatus';
 import type { ItemData } from '../../interfaces/Item';
 
 const Item = () => {
@@ -60,6 +61,7 @@ const Item = () => {
         <InventoryDashboardOverview />
         <AddEditItemDialog isOpen={isDialogOpen} onClose={handleDialogClose} onAddItem={handleAddItem} />
         <AllInventoryTable />
+        <WarehouseCapacityStatus />
       </Box>
     </>
   );
