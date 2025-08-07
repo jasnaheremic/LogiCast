@@ -1,16 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { API_STATUS } from '../utils/constants';
-import { createWarehouseThunk, fetchWarehouseById, fetchWarehouses } from './api/warehouse';
-import type { WarehouseData } from '../interfaces/Warehouse';
+import { createWarehouseThunk, fetchWarehouseById, fetchWarehouseCapacity, fetchWarehouses } from './api/warehouse';
+import type { WarehouseCapacityData, WarehouseData } from '../interfaces/Warehouse';
 
 interface WarehouseState {
   warehouses: WarehouseData[];
+  warehouseCapacity?: WarehouseCapacityData[];
   status: string;
 }
 
 const initialState: WarehouseState = {
   warehouses: [],
+  warehouseCapacity: [],
   status: API_STATUS.IDLE
 };
 
@@ -54,6 +56,17 @@ const warehouseSlice = createSlice({
         state.warehouses = action.payload;
       })
       .addCase(fetchWarehouseById.rejected, state => {
+        state.status = API_STATUS.FAILED;
+      });
+    builder
+      .addCase(fetchWarehouseCapacity.pending, state => {
+        state.status = API_STATUS.LOADING;
+      })
+      .addCase(fetchWarehouseCapacity.fulfilled, (state, action) => {
+        state.status = API_STATUS.SUCCEEDED;
+        state.warehouseCapacity = action.payload;
+      })
+      .addCase(fetchWarehouseCapacity.rejected, state => {
         state.status = API_STATUS.FAILED;
       });
   }

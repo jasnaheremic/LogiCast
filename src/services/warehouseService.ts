@@ -31,3 +31,12 @@ export const getWarehousesById = async (id: string) => {
 
   return response.json();
 };
+
+export const getWarehousesCapacity = async () => {
+  const response = await fetch(`${BACKEND_ROUTES.WAREHOUSE_CAPACITY}`, {
+    method: 'GET',
+    headers: getHeaders()
+  });
+
+  return response.json();
+};

@@ -1,6 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { createWarehouse, getWarehouses, getWarehousesById } from '../../services/warehouseService';
+import {
+  createWarehouse,
+  getWarehouses,
+  getWarehousesById,
+  getWarehousesCapacity
+} from '../../services/warehouseService';
 import type { WarehouseData } from '../../interfaces/Warehouse';
 
 export const createWarehouseThunk = createAsyncThunk(
@@ -38,3 +43,16 @@ export const fetchWarehouseById = createAsyncThunk('warehouses/fetchById', async
     return rejectWithValue((error as Error).message);
   }
 });
+
+export const fetchWarehouseCapacity = createAsyncThunk(
+  'warehouses/fetchWarehouseCapavity',
+  async (_, { rejectWithValue }) => {
+    try {
+      const data = await getWarehousesCapacity();
+
+      return data;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
