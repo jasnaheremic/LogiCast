@@ -42,3 +42,21 @@ export const getInventoryDashboardInfo = async () => {
 
   return data;
 };
+
+export const getCategoriesByAllInventoriesSum = async () => {
+  const response = await fetch(`${BACKEND_ROUTES.TOP_THREE_CATEGORIES}`, {
+    method: 'GET',
+    headers: getHeaders()
+  });
+
+  return await response.json();
+};
+
+export const getInventoryLowStockItems = async () => {
+  const response = await fetch(`${BACKEND_ROUTES.INVENTORY_LOW_STOCK_ITEMS}`, {
+    method: 'GET',
+    headers: getHeaders()
+  });
+
+  return await response.json();
+};
