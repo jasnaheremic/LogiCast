@@ -5,12 +5,16 @@ import {
   createInventoryThunk,
   fetchAllInventory,
   fetchAllInventoryByWarehouseId,
-  fetchInventoryDashboardInfo
+  fetchCategoriesByAllInventoriesSum,
+  fetchInventoryDashboardInfo,
+  fetchInventoryLowStockItems
 } from './api/inventory';
 import type {
   InventoryDashboardData,
   InventoryData,
   InventoryItemsData,
+  InventoryLowStockItemsData,
+  inventoryOverviewByCategoryData,
   WarehouseInventoryItemsData
 } from '../interfaces/Inventory';
 
@@ -19,6 +23,8 @@ interface InventoryState {
   warehouseInventoryItems?: WarehouseInventoryItemsData[];
   allInventoryItems?: InventoryItemsData[];
   inventoryDashboardInfo?: InventoryDashboardData;
+  categoriesByAllInventoriesSum?: inventoryOverviewByCategoryData[];
+  inventoryLowStockItemsData?: InventoryLowStockItemsData[];
   status: string;
 }
 
@@ -26,7 +32,9 @@ const initialState: InventoryState = {
   inventories: [],
   warehouseInventoryItems: [],
   allInventoryItems: [],
+  categoriesByAllInventoriesSum: [],
   inventoryDashboardInfo: undefined,
+  inventoryLowStockItemsData: [],
   status: API_STATUS.IDLE
 };
 
@@ -82,6 +90,28 @@ const inventorySlice = createSlice({
         state.inventoryDashboardInfo = action.payload;
       })
       .addCase(fetchInventoryDashboardInfo.rejected, state => {
+        state.status = API_STATUS.FAILED;
+      });
+    builder
+      .addCase(fetchCategoriesByAllInventoriesSum.pending, state => {
+        state.status = API_STATUS.LOADING;
+      })
+      .addCase(fetchCategoriesByAllInventoriesSum.fulfilled, (state, action) => {
+        state.status = API_STATUS.SUCCEEDED;
+        state.categoriesByAllInventoriesSum = action.payload;
+      })
+      .addCase(fetchCategoriesByAllInventoriesSum.rejected, state => {
+        state.status = API_STATUS.FAILED;
+      });
+    builder
+      .addCase(fetchInventoryLowStockItems.pending, state => {
+        state.status = API_STATUS.LOADING;
+      })
+      .addCase(fetchInventoryLowStockItems.fulfilled, (state, action) => {
+        state.status = API_STATUS.SUCCEEDED;
+        state.inventoryLowStockItemsData = action.payload;
+      })
+      .addCase(fetchInventoryLowStockItems.rejected, state => {
         state.status = API_STATUS.FAILED;
       });
   }

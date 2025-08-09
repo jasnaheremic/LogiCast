@@ -17,7 +17,9 @@ const BACKEND_ROUTES = {
   CATEGORIES: '/api/category',
   ITEMS: '/api/item',
   INVENTORIES: '/api/inventory',
-  INVENTORY_OVERVIEW: 'api/inventory/overview'
+  INVENTORY_OVERVIEW: '/api/inventory/overview',
+  TOP_THREE_CATEGORIES: '/api/inventory/top-three-categories',
+  INVENTORY_LOW_STOCK_ITEMS: '/api/inventory/low-stock'
 };
 
 const API_STATUS = {

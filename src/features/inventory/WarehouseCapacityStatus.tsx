@@ -1,17 +1,25 @@
 import React, { useEffect } from 'react';
 import { Box, Typography, LinearProgress, Button, Stack } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { fetchWarehouseCapacity } from '../../redux/api/warehouse';
+import { ROUTES } from '../../utils/constants';
 
 const colorMap = ['#42A5F5', '#EF6C00', '#66BB6A'];
 
 export const WarehouseCapacityStatus: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { warehouseCapacity } = useAppSelector(state => state.warehouses);
 
   useEffect(() => {
     dispatch(fetchWarehouseCapacity());
   }, [dispatch]);
+
+  const handleViewMore = () => {
+    const warehouseInventoryRoute = ROUTES.WAREHOUSES;
+    navigate(warehouseInventoryRoute);
+  };
 
   return (
     <Box sx={{ p: 4, borderRadius: 2 }}>
@@ -25,7 +33,9 @@ export const WarehouseCapacityStatus: React.FC = () => {
       >
         <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
           <Typography variant="h6">Warehouse Status</Typography>
-          <Button variant="contained">VIEW ALL</Button>
+          <Button onClick={handleViewMore} size="small" variant="text" sx={{ fontSize: 12 }}>
+            VIEW ALL
+          </Button>
         </Stack>
         {warehouseCapacity?.slice(0, 3).map((warehouse, index) => (
           <Box key={warehouse.id} mb={3}>

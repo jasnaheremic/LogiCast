@@ -34,3 +34,18 @@ export interface InventoryDashboardData {
   totalCategoriesCount: number;
   totalItemsCount: number;
 }
+
+export interface inventoryOverviewByCategoryData {
+  categoryId: string;
+  categoryName: string;
+  totalValue: number;
+}
+
+export interface InventoryLowStockItemsData {
+  warehouseId: string;
+  warehouseName: string;
+  itemId: string;
+  itemName: string;
+  currentStock: number;
+  reorderQuantity: number;
+}

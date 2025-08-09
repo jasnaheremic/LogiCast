@@ -3,7 +3,9 @@ import {
   createInventory,
   getAllInventory,
   getAllInventoryByWarehouseId,
-  getInventoryDashboardInfo
+  getCategoriesByAllInventoriesSum,
+  getInventoryDashboardInfo,
+  getInventoryLowStockItems
 } from '../../services/inventoryService';
 import type { InventoryData } from '../../interfaces/Inventory';
 
@@ -54,6 +56,32 @@ export const fetchInventoryDashboardInfo = createAsyncThunk(
   async (_: void, { rejectWithValue }) => {
     try {
       const data = await getInventoryDashboardInfo();
+
+      return data;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
+export const fetchCategoriesByAllInventoriesSum = createAsyncThunk(
+  'inventories/fetchCategoriesByAllInventoriesSum',
+  async (_: void, { rejectWithValue }) => {
+    try {
+      const data = await getCategoriesByAllInventoriesSum();
+
+      return data;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
+export const fetchInventoryLowStockItems = createAsyncThunk(
+  'inventories/fetchInventoryLowStockItems',
+  async (_: void, { rejectWithValue }) => {
+    try {
+      const data = await getInventoryLowStockItems();
 
       return data;
     } catch (error) {

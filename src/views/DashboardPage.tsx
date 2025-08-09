@@ -1,11 +1,7 @@
-import { Box, Typography } from '@mui/material';
+import Dashboard from '../features/dashboard';
 
 const DashboardPage = () => {
-  return (
-    <Box>
-      <Typography>Dashboard Page</Typography>
-    </Box>
-  );
+  return <Dashboard />;
 };
 
 export default DashboardPage;
