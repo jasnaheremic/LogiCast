@@ -1,13 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { API_STATUS } from '../utils/constants';
+import { updateWarehouseInventoryItem } from '../services/inventoryService';
 import {
   createInventoryThunk,
+  deleteWarehouseInventoryItemThunk,
   fetchAllInventory,
   fetchAllInventoryByWarehouseId,
   fetchCategoriesByAllInventoriesSum,
   fetchInventoryDashboardInfo,
-  fetchInventoryLowStockItems
+  fetchInventoryLowStockItems,
+  updateWarehouseInventoryItemThunk
 } from './api/inventory';
 import type {
   InventoryDashboardData,
@@ -112,6 +115,38 @@ const inventorySlice = createSlice({
         state.inventoryLowStockItemsData = action.payload;
       })
       .addCase(fetchInventoryLowStockItems.rejected, state => {
+        state.status = API_STATUS.FAILED;
+      })
+      .addCase(deleteWarehouseInventoryItemThunk.pending, state => {
+        state.status = API_STATUS.LOADING;
+      })
+      .addCase(deleteWarehouseInventoryItemThunk.fulfilled, (state, action) => {
+        state.status = API_STATUS.SUCCEEDED;
+        const { warehouseId, itemId } = action.payload;
+        state.inventories = state.inventories.filter(
+          inventory => !(inventory.warehouseId === warehouseId && inventory.itemId === itemId)
+        );
+      })
+      .addCase(deleteWarehouseInventoryItemThunk.rejected, state => {
+        state.status = API_STATUS.FAILED;
+      })
+      .addCase(updateWarehouseInventoryItemThunk.pending, state => {
+        state.status = API_STATUS.LOADING;
+      })
+      .addCase(updateWarehouseInventoryItemThunk.fulfilled, (state, action) => {
+        state.status = API_STATUS.SUCCEEDED;
+        const updatedItem = action.payload;
+        const index = state.inventories.findIndex(
+          inventory => inventory.warehouseId === updatedItem.warehouseId && inventory.itemId === updatedItem.itemId
+        );
+        if (index !== -1) {
+          state.inventories[index] = {
+            ...state.inventories[index],
+            ...updatedItem
+          };
+        }
+      })
+      .addCase(updateWarehouseInventoryItemThunk.rejected, state => {
         state.status = API_STATUS.FAILED;
       });
   }

@@ -1,13 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   createInventory,
+  deleteWarehouseInventoryItem,
   getAllInventory,
   getAllInventoryByWarehouseId,
   getCategoriesByAllInventoriesSum,
   getInventoryDashboardInfo,
-  getInventoryLowStockItems
+  getInventoryLowStockItems,
+  updateWarehouseInventoryItem
 } from '../../services/inventoryService';
-import type { InventoryData } from '../../interfaces/Inventory';
+import type { InventoryData, WarehouseInventoryItemsData } from '../../interfaces/Inventory';
 
 export const createInventoryThunk = createAsyncThunk(
   'inventories/createInventory',
@@ -84,6 +86,45 @@ export const fetchInventoryLowStockItems = createAsyncThunk(
       const data = await getInventoryLowStockItems();
 
       return data;
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
+export const deleteWarehouseInventoryItemThunk = createAsyncThunk(
+  'items/deleteWarehouseInventoryItem',
+  async ({ warehouseId, itemId }: { warehouseId: string; itemId: string }, { rejectWithValue }) => {
+    try {
+      const result = await deleteWarehouseInventoryItem(warehouseId, itemId);
+      if (!result.ok) {
+        return rejectWithValue(result.status);
+      }
+
+      return { warehouseId, itemId };
+    } catch (error) {
+      return rejectWithValue((error as Error).message);
+    }
+  }
+);
+
+export const updateWarehouseInventoryItemThunk = createAsyncThunk(
+  'items/updateItem',
+  async (
+    {
+      warehouseId,
+      itemId,
+      inventoryData
+    }: { warehouseId: string; itemId: string; inventoryData: WarehouseInventoryItemsData },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await updateWarehouseInventoryItem(warehouseId, itemId, inventoryData);
+      if (!response.ok) {
+        return rejectWithValue(response.status);
+      }
+
+      return response.data;
     } catch (error) {
       return rejectWithValue((error as Error).message);
     }

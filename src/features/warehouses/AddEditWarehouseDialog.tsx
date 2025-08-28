@@ -1,5 +1,6 @@
 import { Box, TextField } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
+import { useEffect } from 'react';
 import CustomDialog from '../../components/customDialog';
 import type { WarehouseData } from '../../interfaces/Warehouse';
 
@@ -7,9 +8,17 @@ interface AddWarehouseDialogProps {
   isOpen: boolean;
   onClose: () => void;
   onAddWarehouse: (data: WarehouseData) => void;
+  onWarehouseUpdate: (id: string, data: WarehouseData) => void;
+  warehouseToEdit?: WarehouseData | null;
 }
 
-const AddEditWarehouseDialog = ({ isOpen, onClose, onAddWarehouse }: AddWarehouseDialogProps) => {
+const AddEditWarehouseDialog = ({
+  isOpen,
+  onClose,
+  onAddWarehouse,
+  onWarehouseUpdate,
+  warehouseToEdit
+}: AddWarehouseDialogProps) => {
   const {
     control,
     handleSubmit,
@@ -23,8 +32,29 @@ const AddEditWarehouseDialog = ({ isOpen, onClose, onAddWarehouse }: AddWarehous
     }
   });
 
+  useEffect(() => {
+    if (warehouseToEdit) {
+      reset({
+        name: warehouseToEdit.name,
+        location: warehouseToEdit.location,
+        maxCapacity: warehouseToEdit.maxCapacity
+      });
+    } else {
+      reset({
+        name: '',
+        location: '',
+        maxCapacity: 100
+      });
+    }
+  }, [warehouseToEdit, reset]);
+
   const handleFormSubmit = (data: WarehouseData) => {
-    onAddWarehouse(data);
+    if (warehouseToEdit?.id) {
+      onWarehouseUpdate(warehouseToEdit.id, data);
+    } else {
+      onAddWarehouse(data);
+    }
+
     reset();
     onClose();
   };
@@ -41,7 +71,7 @@ const AddEditWarehouseDialog = ({ isOpen, onClose, onAddWarehouse }: AddWarehous
       title="Add Warehouse"
       secondaryButton={{ buttonText: 'Cancel' }}
       primaryButton={{
-        buttonText: 'Add',
+        buttonText: warehouseToEdit ? 'Update' : 'Add',
         onAction: handleSubmit(handleFormSubmit)
       }}
     >

@@ -53,7 +53,14 @@ const Warehouse = () => {
             Add Warehouse
           </CustomButton>
         </Box>
-        <AddEditWarehouseDialog isOpen={isDialogOpen} onClose={handleDialogClose} onAddWarehouse={handleAddWarehouse} />
+        <AddEditWarehouseDialog
+          isOpen={isDialogOpen}
+          onClose={handleDialogClose}
+          onAddWarehouse={handleAddWarehouse}
+          onWarehouseUpdate={function (id: string, data: WarehouseData): void {
+            throw new Error('Function not implemented.');
+          }}
+        />
         <Box>
           <Box
             sx={{

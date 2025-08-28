@@ -14,6 +14,8 @@ export interface WarehouseInventoryItemsData {
   barcode: string;
   itemName: string;
   categoryName: string;
+  minValue: number;
+  maxValue: number;
   quantity: number;
   status: string;
   price: number;

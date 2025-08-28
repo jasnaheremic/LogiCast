@@ -1,6 +1,7 @@
 import { CardContent, Card, Typography, CardActions, Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../utils/constants';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import type { WarehouseCapacityData } from '../../interfaces/Warehouse';
 
 interface WarehouseCardProps {
@@ -43,7 +44,7 @@ const WarehouseDashboardCard = ({ warehouse }: WarehouseCardProps) => {
           >
             <Typography variant="body2" sx={{ fontSize: 'inherit' }}>
               <Box component="span" display="block">
-                Capacity: {warehouse.usedCapacity}%
+                Capacity: {warehouse.capacityUsagePercent}%
               </Box>
               <Box component="span" display="block">
                 Low Stock:

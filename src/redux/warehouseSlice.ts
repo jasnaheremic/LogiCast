@@ -1,7 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { API_STATUS } from '../utils/constants';
-import { createWarehouseThunk, fetchWarehouseById, fetchWarehouseCapacity, fetchWarehouses } from './api/warehouse';
+import {
+  createWarehouseThunk,
+  deleteWarehouseThunk,
+  fetchWarehouseById,
+  fetchWarehouseCapacity,
+  fetchWarehouses,
+  updateWarehouseThunk
+} from './api/warehouse';
 import type { WarehouseCapacityData, WarehouseData } from '../interfaces/Warehouse';
 
 interface WarehouseState {
@@ -67,6 +74,31 @@ const warehouseSlice = createSlice({
         state.warehouseCapacity = action.payload;
       })
       .addCase(fetchWarehouseCapacity.rejected, state => {
+        state.status = API_STATUS.FAILED;
+      })
+      .addCase(deleteWarehouseThunk.pending, state => {
+        state.status = API_STATUS.LOADING;
+      })
+      .addCase(deleteWarehouseThunk.fulfilled, (state, action) => {
+        state.status = API_STATUS.SUCCEEDED;
+        const warehouseIdToDelete = action.payload;
+        state.warehouses = state.warehouses.filter(warehouse => warehouse.id !== warehouseIdToDelete);
+      })
+      .addCase(deleteWarehouseThunk.rejected, state => {
+        state.status = API_STATUS.FAILED;
+      })
+      .addCase(updateWarehouseThunk.pending, state => {
+        state.status = API_STATUS.LOADING;
+      })
+      .addCase(updateWarehouseThunk.fulfilled, (state, action) => {
+        state.status = API_STATUS.SUCCEEDED;
+        const updateWarehouse = action.payload;
+        const index = state.warehouses.findIndex(warehouse => warehouse.id === updateWarehouse.id);
+        if (index !== -1) {
+          state.warehouses[index] = updateWarehouse;
+        }
+      })
+      .addCase(updateWarehouseThunk.rejected, state => {
         state.status = API_STATUS.FAILED;
       });
   }

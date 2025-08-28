@@ -1,6 +1,6 @@
 import { getHeaders } from '../utils/apitUtils';
 import { BACKEND_ROUTES } from '../utils/constants';
-import type { InventoryData } from '../interfaces/Inventory';
+import type { InventoryData, WarehouseInventoryItemsData } from '../interfaces/Inventory';
 
 export const createInventory = async (inventoryData: InventoryData) => {
   const response = await fetch(`${BACKEND_ROUTES.INVENTORIES}`, {
@@ -59,4 +59,29 @@ export const getInventoryLowStockItems = async () => {
   });
 
   return await response.json();
+};
+
+export const deleteWarehouseInventoryItem = async (warehouseId: string, itemId: string) => {
+  const response = await fetch(`${BACKEND_ROUTES.DELETE_WAREHOUSE_INVENTORY(warehouseId, itemId)}`, {
+    method: 'DELETE',
+    headers: getHeaders()
+  });
+
+  return response;
+};
+
+export const updateWarehouseInventoryItem = async (
+  warehouseId: string,
+  itemId: string,
+  inventoryData: WarehouseInventoryItemsData
+) => {
+  const response = await fetch(`${BACKEND_ROUTES.DELETE_WAREHOUSE_INVENTORY(warehouseId, itemId)}`, {
+    method: 'PUT',
+    headers: {
+      ...getHeaders()
+    },
+    body: JSON.stringify(inventoryData)
+  });
+
+  return response.json();
 };

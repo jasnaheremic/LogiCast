@@ -8,7 +8,7 @@ import { createInventoryThunk, fetchAllInventoryByWarehouseId } from '../../../r
 import CustomButton from '../../../components/customButton';
 import AddEditInventoryDialog from './AddEditInventoryDialog';
 import WarehouseInventoryTable from './WarehouseInventoryTable';
-import type { InventoryData } from '../../../interfaces/Inventory';
+import type { InventoryData, WarehouseInventoryItemsData } from '../../../interfaces/Inventory';
 
 const WarehouseInventory = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -50,7 +50,14 @@ const WarehouseInventory = () => {
             Add Inventory Item
           </CustomButton>
         </Box>
-        <AddEditInventoryDialog isOpen={isDialogOpen} onClose={handleDialogClose} onAddInventory={handleAddInventory} />
+        <AddEditInventoryDialog
+          isOpen={isDialogOpen}
+          onClose={handleDialogClose}
+          onAddInventory={handleAddInventory}
+          onUpdateInventory={function (warehouseId: string, itemId: string, data: WarehouseInventoryItemsData): void {
+            throw new Error('Function not implemented.');
+          }}
+        />
         {warehouseId && <WarehouseInventoryTable warehouseId={warehouseId} />}
       </Box>
     </>

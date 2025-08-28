@@ -5,6 +5,7 @@ import { Box, Typography } from '@mui/material';
 import CustomButton from '../../components/customButton';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { createItemThunk, fetchItems } from '../../redux/api/item';
+import { fetchAllInventory } from '../../redux/api/inventory';
 import AddEditItemDialog from './AddEditItemDialog';
 import AllInventoryTable from './AllInventoryTable';
 import InventoryDashboardOverview from './InventoryDashboardOverview';
@@ -30,6 +31,7 @@ const Item = () => {
   const handleAddItem = async (data: ItemData) => {
     await dispatch(createItemThunk(data));
     dispatch(fetchItems());
+    dispatch(fetchAllInventory());
   };
 
   return (
@@ -59,7 +61,14 @@ const Item = () => {
           </CustomButton>
         </Box>
         <InventoryDashboardOverview />
-        <AddEditItemDialog isOpen={isDialogOpen} onClose={handleDialogClose} onAddItem={handleAddItem} />
+        <AddEditItemDialog
+          isOpen={isDialogOpen}
+          onClose={handleDialogClose}
+          onAddItem={handleAddItem}
+          onUpdateItem={function (id: string, data: ItemData): void {
+            throw new Error('Function not implemented.');
+          }}
+        />
         <AllInventoryTable />
         <WarehouseCapacityStatus />
       </Box>

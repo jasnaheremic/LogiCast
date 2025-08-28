@@ -40,3 +40,24 @@ export const getWarehousesCapacity = async () => {
 
   return response.json();
 };
+
+export const deleteWarehouse = async (id: string) => {
+  const response = await fetch(`${BACKEND_ROUTES.WAREHOUSES}/${id}`, {
+    method: 'DELETE',
+    headers: getHeaders()
+  });
+
+  return response;
+};
+
+export const updateWarehouse = async (id: string, warehouseData: WarehouseData) => {
+  const response = await fetch(`${BACKEND_ROUTES.WAREHOUSES}/${id}`, {
+    method: 'PUT',
+    headers: {
+      ...getHeaders()
+    },
+    body: JSON.stringify(warehouseData)
+  });
+
+  return response.json();
+};
