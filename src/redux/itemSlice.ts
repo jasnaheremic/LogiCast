@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { API_STATUS } from '../utils/constants';
-import { createItemThunk, fetchItemById, fetchItems } from './api/item';
+import { createItemThunk, deleteItemThunk, fetchItemById, fetchItems, updateItemThunk } from './api/item';
 import type { ItemData } from '../interfaces/Item';
 
 interface ItemState {
@@ -54,6 +54,31 @@ const itemSlice = createSlice({
         state.items = action.payload;
       })
       .addCase(fetchItemById.rejected, state => {
+        state.status = API_STATUS.FAILED;
+      })
+      .addCase(deleteItemThunk.pending, state => {
+        state.status = API_STATUS.LOADING;
+      })
+      .addCase(deleteItemThunk.fulfilled, (state, action) => {
+        state.status = API_STATUS.SUCCEEDED;
+        const itemIdToDelete = action.payload;
+        state.items = state.items.filter(item => item.id !== itemIdToDelete);
+      })
+      .addCase(deleteItemThunk.rejected, state => {
+        state.status = API_STATUS.FAILED;
+      })
+      .addCase(updateItemThunk.pending, state => {
+        state.status = API_STATUS.LOADING;
+      })
+      .addCase(updateItemThunk.fulfilled, (state, action) => {
+        state.status = API_STATUS.SUCCEEDED;
+        const updatedItem = action.payload;
+        const index = state.items.findIndex(item => item.id === updatedItem.id);
+        if (index !== -1) {
+          state.items[index] = updatedItem;
+        }
+      })
+      .addCase(updateItemThunk.rejected, state => {
         state.status = API_STATUS.FAILED;
       });
   }

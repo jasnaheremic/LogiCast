@@ -16,6 +16,7 @@ const BACKEND_ROUTES = {
   WAREHOUSE_CAPACITY: '/api/warehouse/top-capacity',
   CATEGORIES: '/api/category',
   ITEMS: '/api/item',
+  DELETE_WAREHOUSE_INVENTORY: (warehouseId: string, itemId: string) => `/api/inventory/${warehouseId}/item/${itemId}`,
   INVENTORIES: '/api/inventory',
   INVENTORY_OVERVIEW: '/api/inventory/overview',
   TOP_THREE_CATEGORIES: '/api/inventory/top-three-categories',

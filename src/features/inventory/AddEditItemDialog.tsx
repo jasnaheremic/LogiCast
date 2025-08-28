@@ -1,6 +1,7 @@
 import { useForm, Controller } from 'react-hook-form';
 import { Autocomplete, Box, TextField } from '@mui/material';
 
+import { useEffect } from 'react';
 import CustomDialog from '../../components/customDialog';
 import { UNIT } from '../../utils/constants/itemConstants';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
@@ -12,9 +13,11 @@ interface AddEditItemDialogProps {
   isOpen: boolean;
   onClose: () => void;
   onAddItem: (data: ItemData) => void;
+  onUpdateItem: (id: string, data: ItemData) => void;
+  itemToEdit?: ItemData | null;
 }
 
-const AddEditItemDialog = ({ isOpen, onClose, onAddItem }: AddEditItemDialogProps) => {
+const AddEditItemDialog = ({ isOpen, onClose, onAddItem, onUpdateItem, itemToEdit }: AddEditItemDialogProps) => {
   const { categories } = useAppSelector(state => state.categories);
   const dispatch = useAppDispatch();
   const {
@@ -31,8 +34,33 @@ const AddEditItemDialog = ({ isOpen, onClose, onAddItem }: AddEditItemDialogProp
     }
   });
 
+  useEffect(() => {
+    if (itemToEdit) {
+      reset({
+        barcode: itemToEdit.barcode,
+        name: itemToEdit.name,
+        categoryId: itemToEdit.categoryId,
+        unit: itemToEdit.unit,
+        price: itemToEdit.price
+      });
+    } else {
+      reset({
+        barcode: '',
+        name: '',
+        categoryId: '',
+        unit: '',
+        price: 100
+      });
+    }
+  }, [itemToEdit, reset]);
+
   const handleFormSubmit = (data: ItemData) => {
-    onAddItem(data);
+    if (itemToEdit?.id) {
+      onUpdateItem(itemToEdit.id, data);
+    } else {
+      onAddItem(data);
+    }
+
     reset();
     onClose();
   };
@@ -53,7 +81,7 @@ const AddEditItemDialog = ({ isOpen, onClose, onAddItem }: AddEditItemDialogProp
       title="Add Item"
       secondaryButton={{ buttonText: 'Cancel' }}
       primaryButton={{
-        buttonText: 'Add',
+        buttonText: itemToEdit ? 'Update' : 'Add',
         onAction: handleSubmit(handleFormSubmit)
       }}
     >

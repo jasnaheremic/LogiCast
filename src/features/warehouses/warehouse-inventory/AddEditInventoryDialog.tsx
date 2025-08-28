@@ -2,19 +2,28 @@ import { useForm, Controller } from 'react-hook-form';
 import { Autocomplete, Box, TextField } from '@mui/material';
 
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import CustomDialog from '../../../components/customDialog';
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import { fetchItems } from '../../../redux/api/item';
-import type { InventoryData } from '../../../interfaces/Inventory';
+import type { InventoryData, WarehouseInventoryItemsData } from '../../../interfaces/Inventory';
 import type { ItemData } from '../../../interfaces/Item';
 
 interface AddInventoryDialogProps {
   isOpen: boolean;
   onClose: () => void;
   onAddInventory: (data: InventoryData) => void;
+  onUpdateInventory: (warehouseId: string, itemId: string, data: WarehouseInventoryItemsData) => void;
+  inventoryItemToEdit?: WarehouseInventoryItemsData | null;
 }
 
-const AddEditInventoryDialog = ({ isOpen, onClose, onAddInventory }: AddInventoryDialogProps) => {
+const AddEditInventoryDialog = ({
+  isOpen,
+  onClose,
+  onAddInventory,
+  onUpdateInventory,
+  inventoryItemToEdit
+}: AddInventoryDialogProps) => {
   const { warehouseId } = useParams<{ warehouseId: string }>();
   const { items } = useAppSelector(state => state.items);
   const dispatch = useAppDispatch();
@@ -34,8 +43,32 @@ const AddEditInventoryDialog = ({ isOpen, onClose, onAddInventory }: AddInventor
     }
   });
 
+  useEffect(() => {
+    if (inventoryItemToEdit) {
+      reset({
+        quantity: inventoryItemToEdit.quantity,
+        maxValue: inventoryItemToEdit.maxValue,
+        minValue: inventoryItemToEdit.minValue
+      });
+    } else {
+      reset({
+        quantity: 0,
+        maxValue: 100,
+        minValue: 100
+      });
+    }
+  }, [inventoryItemToEdit, reset]);
+
   const handleFormSubmit = (data: InventoryData) => {
-    onAddInventory({ ...data, warehouseId: warehouseId || '' });
+    if (inventoryItemToEdit && warehouseId) {
+      onUpdateInventory(warehouseId, inventoryItemToEdit.itemId, {
+        ...inventoryItemToEdit,
+        ...data
+      });
+    } else {
+      onAddInventory({ ...data, warehouseId: warehouseId || '' });
+    }
+
     reset();
     onClose();
   };
@@ -53,31 +86,33 @@ const AddEditInventoryDialog = ({ isOpen, onClose, onAddInventory }: AddInventor
     <CustomDialog
       isDialogOpen={isOpen}
       onClose={handleCancel}
-      title="Add Inventory"
+      title={inventoryItemToEdit ? 'Edit Inventory Item' : 'Add Inventory Item'}
       secondaryButton={{ buttonText: 'Cancel' }}
       primaryButton={{
-        buttonText: 'Add',
+        buttonText: inventoryItemToEdit ? 'Update' : 'Add',
         onAction: handleSubmit(handleFormSubmit)
       }}
     >
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
-        <Controller
-          name="itemId"
-          control={control}
-          render={({ field }) => (
-            <Autocomplete
-              {...field}
-              disablePortal
-              options={items}
-              getOptionLabel={(option: unknown) => (option as ItemData).name}
-              value={items.find(option => option.id === field.value) || null}
-              onChange={(_, value) => field.onChange(value?.id)}
-              renderInput={params => (
-                <TextField {...params} label="Item" error={!!errors.itemId} helperText={errors.itemId?.message} />
-              )}
-            />
-          )}
-        />
+        {!inventoryItemToEdit && (
+          <Controller
+            name="itemId"
+            control={control}
+            render={({ field }) => (
+              <Autocomplete
+                {...field}
+                disablePortal
+                options={items}
+                getOptionLabel={(option: unknown) => (option as ItemData).name}
+                value={items.find(option => option.id === field.value) || null}
+                onChange={(_, value) => field.onChange(value?.id)}
+                renderInput={params => (
+                  <TextField {...params} label="Item" error={!!errors.itemId} helperText={errors.itemId?.message} />
+                )}
+              />
+            )}
+          />
+        )}
         <Controller
           name="quantity"
           control={control}

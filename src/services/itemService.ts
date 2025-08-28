@@ -31,3 +31,24 @@ export const getItemById = async (id: string) => {
 
   return response.json();
 };
+
+export const deleteItem = async (id: string) => {
+  const response = await fetch(`${BACKEND_ROUTES.ITEMS}/${id}`, {
+    method: 'DELETE',
+    headers: getHeaders()
+  });
+
+  return response;
+};
+
+export const updateItem = async (id: string, itemData: ItemData) => {
+  const response = await fetch(`${BACKEND_ROUTES.ITEMS}/${id}`, {
+    method: 'PUT',
+    headers: {
+      ...getHeaders()
+    },
+    body: JSON.stringify(itemData)
+  });
+
+  return response.json();
+};
