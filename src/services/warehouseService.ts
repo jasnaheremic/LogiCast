@@ -61,3 +61,18 @@ export const updateWarehouse = async (id: string, warehouseData: WarehouseData) 
 
   return response.json();
 };
+
+export const getWarehouseInventoryPdf = async (id: string) => {
+  const response = await fetch(`${BACKEND_ROUTES.WAREHOUSES}/${id}/pdf`, {
+    method: 'GET',
+    headers: getHeaders()
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch PDF');
+  }
+
+  const blob = await response.blob();
+
+  return blob;
+};

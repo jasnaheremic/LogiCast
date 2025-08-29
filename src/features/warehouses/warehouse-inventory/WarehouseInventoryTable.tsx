@@ -108,15 +108,15 @@ const WarehouseInventoryTable = ({ warehouseId }: WarehouseInventoryTableProps) 
             <TableRow sx={{ backgroundColor: 'white' }}>
               <TableCell colSpan={7}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Typography variant="h6">Warehouse Inventory</Typography>
+                  <Typography variant="h6">Inventar Skladišta</Typography>
                   <FormControl variant="outlined" size="small" sx={{ minWidth: 120 }}>
-                    <InputLabel>Category</InputLabel>
+                    <InputLabel>Kategorija</InputLabel>
                     <Select
                       value={selectedCategory}
                       onChange={e => setSelectedCategory(e.target.value as string)}
                       label="Category"
                     >
-                      <MenuItem value="All">All</MenuItem>
+                      <MenuItem value="All">Sve</MenuItem>
                       {categories.map(category => (
                         <MenuItem key={category.id} value={category.name}>
                           {category.name}
@@ -128,20 +128,20 @@ const WarehouseInventoryTable = ({ warehouseId }: WarehouseInventoryTableProps) 
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Barcode</TableCell>
-              <TableCell>Item Name</TableCell>
-              <TableCell>Category Name</TableCell>
-              <TableCell>Quantity</TableCell>
+              <TableCell>Barkod</TableCell>
+              <TableCell>Naziv Artikla</TableCell>
+              <TableCell>Ime Kategorije</TableCell>
+              <TableCell>Količina</TableCell>
               <TableCell>Status</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell align="center">Actions</TableCell>
+              <TableCell>Cijena</TableCell>
+              <TableCell align="center">Akcija</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {!filteredItems || filteredItems.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={7}>
-                  <Typography align="center">No inventory found for this warehouse.</Typography>
+                  <Typography align="center">Nije pronađen inventar za ovo skladište</Typography>
                 </TableCell>
               </TableRow>
             ) : (
@@ -170,10 +170,10 @@ const WarehouseInventoryTable = ({ warehouseId }: WarehouseInventoryTableProps) 
       <ConfirmDeleteDialog
         isDialogOpen={isDeleteDialogOpen}
         onClose={handleCloseDeleteDialog}
-        title={`Delete item ${selectedItem?.itemName}?`}
+        title={`Obriši artikal ${selectedItem?.itemName}?`}
         onConfirm={handleConfirmDelete}
         name={selectedItem?.itemName || ''}
-        message={`Are you sure you want to delete ${selectedItem?.itemName}?`}
+        message={`Da li ste sigurni da želite obrisati ${selectedItem?.itemName}?`}
       />
       <AddEditInventoryDialog
         isOpen={isEditDialogOpen}

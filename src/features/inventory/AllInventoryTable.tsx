@@ -96,15 +96,15 @@ const AllInventoryTable = () => {
             <TableRow sx={{ backgroundColor: 'white' }}>
               <TableCell colSpan={7}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Typography variant="h6">Inventory</Typography>
+                  <Typography variant="h6">Inventar</Typography>
                   <FormControl variant="outlined" size="small" sx={{ minWidth: 120 }}>
-                    <InputLabel>Category</InputLabel>
+                    <InputLabel>Kategorija</InputLabel>
                     <Select
                       value={selectedCategory}
                       onChange={e => setSelectedCategory(e.target.value as string)}
-                      label="Category"
+                      label="Kategorija"
                     >
-                      <MenuItem value="All">All</MenuItem>
+                      <MenuItem value="All">Sve</MenuItem>
                       {categories.map(category => (
                         <MenuItem key={category.id} value={category.name}>
                           {category.name}
@@ -116,11 +116,11 @@ const AllInventoryTable = () => {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Barcode</TableCell>
-              <TableCell>Item Name</TableCell>
-              <TableCell>Category Name</TableCell>
-              <TableCell>Total Quantity</TableCell>
-              <TableCell>Total Price</TableCell>
+              <TableCell>Barkod</TableCell>
+              <TableCell>Naziv Artikla</TableCell>
+              <TableCell>Ime Kategorije</TableCell>
+              <TableCell>Ukupna količina</TableCell>
+              <TableCell>Ukupna Cijena</TableCell>
               <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -128,7 +128,7 @@ const AllInventoryTable = () => {
             {!filteredItems || filteredItems.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={7}>
-                  <Typography align="center">No inventory found for this warehouse.</Typography>
+                  <Typography align="center">Inventar za ovo skladište nije pronađen</Typography>
                 </TableCell>
               </TableRow>
             ) : (
@@ -156,10 +156,10 @@ const AllInventoryTable = () => {
       <ConfirmDeleteDialog
         isDialogOpen={isDeleteDialogOpen}
         onClose={handleCloseDeleteDialog}
-        title={`Delete item ${selectedItem?.itemName}?`}
+        title={`Obriši ${selectedItem?.itemName}?`}
         onConfirm={handleConfirmDelete}
         name={selectedItem?.itemName || ''}
-        message={`Are you sure you want to delete ${selectedItem?.itemName}?`}
+        message={`Da li ste sigurni da želite obrisati ${selectedItem?.itemName}?`}
       />
       <AddEditItemDialog
         isOpen={isDialogOpen}

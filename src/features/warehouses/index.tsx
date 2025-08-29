@@ -50,7 +50,7 @@ const Warehouse = () => {
           }}
         >
           <CustomButton onClick={handleButtonClick} variant="contained" color="primary" startIcon={<AddIcon />}>
-            Add Warehouse
+            Dodaj Skladište
           </CustomButton>
         </Box>
         <AddEditWarehouseDialog

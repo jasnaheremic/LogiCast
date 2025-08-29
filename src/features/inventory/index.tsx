@@ -53,11 +53,11 @@ const Item = () => {
           }}
         >
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography variant="h5">Inventory Management</Typography>
-            <Typography>Manage and track all warehouse inventory items</Typography>
+            <Typography variant="h5">Upravljanje Zalihama</Typography>
+            <Typography>Upravljajte i pratite sve artikle skladišnog inventara</Typography>
           </Box>
           <CustomButton onClick={handleButtonClick} variant="contained" color="primary" startIcon={<AddIcon />}>
-            Add Item
+            Dodaj Artikal
           </CustomButton>
         </Box>
         <InventoryDashboardOverview />

@@ -27,7 +27,7 @@ export const CategoriesChart = () => {
         }}
       >
         <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
-          <Typography variant="h6">Top 3 Categories by Total Value</Typography>
+          <Typography variant="h6">Top 3 kategorije po ukupnoj vrijednosti</Typography>
         </Stack>
 
         {categoriesByAllInventoriesSum.map((category, index) => {
@@ -54,7 +54,7 @@ export const CategoriesChart = () => {
                   />
                 </Box>
                 <Typography variant="body2" sx={{ minWidth: 60 }}>
-                  {category.totalValue.toLocaleString()} $
+                  {category.totalValue.toLocaleString()} KM
                 </Typography>
               </Box>
             </Box>

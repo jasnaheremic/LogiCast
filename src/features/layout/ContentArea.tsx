@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface contentAreaProps {
   children: ReactNode;
@@ -11,11 +11,8 @@ const ContentArea = ({ children }: contentAreaProps) => {
       sx={{
         flexDirection: 'column',
         flexGrow: 1,
-        backgroundColor: 'white',
+        backgroundColor: '#F3F3E0',
         display: 'flex',
-        borderRadius: '10px',
-        mx: '24px',
-        my: '12px',
         p: '16px',
         overflowY: 'auto',
         height: '85vh'

@@ -32,6 +32,7 @@ const AddEditInventoryDialog = ({
     control,
     handleSubmit,
     reset,
+    getValues,
     formState: { errors }
   } = useForm<InventoryData>({
     defaultValues: {
@@ -86,10 +87,10 @@ const AddEditInventoryDialog = ({
     <CustomDialog
       isDialogOpen={isOpen}
       onClose={handleCancel}
-      title={inventoryItemToEdit ? 'Edit Inventory Item' : 'Add Inventory Item'}
-      secondaryButton={{ buttonText: 'Cancel' }}
+      title={inventoryItemToEdit ? 'Uredi Artikle Inventara' : 'Dodaj Artikal u Inventar'}
+      secondaryButton={{ buttonText: 'Poništi' }}
       primaryButton={{
-        buttonText: inventoryItemToEdit ? 'Update' : 'Add',
+        buttonText: inventoryItemToEdit ? 'Ažuriraj' : 'Dodaj',
         onAction: handleSubmit(handleFormSubmit)
       }}
     >
@@ -107,7 +108,7 @@ const AddEditInventoryDialog = ({
                 value={items.find(option => option.id === field.value) || null}
                 onChange={(_, value) => field.onChange(value?.id)}
                 renderInput={params => (
-                  <TextField {...params} label="Item" error={!!errors.itemId} helperText={errors.itemId?.message} />
+                  <TextField {...params} label="Artikal" error={!!errors.itemId} helperText={errors.itemId?.message} />
                 )}
               />
             )}
@@ -117,16 +118,22 @@ const AddEditInventoryDialog = ({
           name="quantity"
           control={control}
           rules={{
-            required: 'Quantity is required',
+            required: 'Količina je obavezna',
             pattern: {
               value: /^[0-9]+$/,
-              message: 'Quantity must be a number'
+              message: 'Količina mora biti broj'
+            },
+            validate: (quantity: number) => {
+              const maxValue = getValues('maxValue');
+              if (!maxValue) return true;
+
+              return quantity <= maxValue || 'Količina ne može biti veća od maksimalne vrijednosti';
             }
           }}
           render={({ field }) => (
             <TextField
               {...field}
-              label="Quantity"
+              label="Količina"
               fullWidth
               error={!!errors.quantity}
               helperText={errors.quantity?.message}
@@ -137,16 +144,16 @@ const AddEditInventoryDialog = ({
           name="maxValue"
           control={control}
           rules={{
-            required: 'Max capacity is required',
+            required: 'Maksimalna vrijednost je obavezna',
             pattern: {
               value: /^[0-9]+$/,
-              message: 'Max capacity must be a number'
+              message: 'Maksimalna vrijednost mora biti broj'
             }
           }}
           render={({ field }) => (
             <TextField
               {...field}
-              label="Max Capacity"
+              label="Max Vrijednost"
               fullWidth
               error={!!errors.maxValue}
               helperText={errors.maxValue?.message}
@@ -157,16 +164,22 @@ const AddEditInventoryDialog = ({
           name="minValue"
           control={control}
           rules={{
-            required: 'Min value is required',
+            required: 'Minimalna vrijednost je obavezna',
             pattern: {
               value: /^[0-9]+$/,
-              message: 'Min value must be a number'
+              message: 'Minimalna vrijednost mora biti broj'
+            },
+            validate: (minValue: number) => {
+              const maxValue = getValues('maxValue');
+              if (!maxValue) return true;
+
+              return minValue <= maxValue || 'Minimalna vrijednost ne može biti veća od maksimalne vrijednosti';
             }
           }}
           render={({ field }) => (
             <TextField
               {...field}
-              label="Min Value"
+              label="Min Vrijednost"
               fullWidth
               error={!!errors.minValue}
               helperText={errors.minValue?.message}

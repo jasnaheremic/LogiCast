@@ -26,7 +26,7 @@ const InventoryLowStockItemsTable = () => {
     <Box sx={{ p: 3 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <Typography variant="h6" fontWeight="bold">
-          Low Stock Items
+          Niska zaliha
         </Typography>
       </Box>
 
@@ -34,11 +34,11 @@ const InventoryLowStockItemsTable = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Warehouse</TableCell>
-              <TableCell>Item</TableCell>
-              <TableCell>Current Stock</TableCell>
-              <TableCell>Reorder Level</TableCell>
-              <TableCell>Action</TableCell>
+              <TableCell>Skladište</TableCell>
+              <TableCell>Artikal</TableCell>
+              <TableCell>Trenutno Stanje</TableCell>
+              <TableCell>Potrebna Količina Zaliha</TableCell>
+              <TableCell>Akcija</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -54,7 +54,7 @@ const InventoryLowStockItemsTable = () => {
                     sx={{ color: 'primary.main', fontWeight: 500 }}
                     onClick={() => console.log('Reorder', item)}
                   >
-                    Reorder
+                    Naruči
                   </Button>
                 </TableCell>
               </TableRow>

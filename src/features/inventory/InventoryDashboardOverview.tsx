@@ -15,9 +15,7 @@ const InventoryDashboardOverview = () => {
     }
   }, []);
 
-  console.log('Inventory Dashboard Info:', inventoryDashboardInfo);
-
-  const formatCurrency = (value: number) => `$${value.toFixed(2)}`;
+  const formatCurrency = (value: number) => `${value.toFixed(2)} KM`;
 
   return (
     <Box sx={{ p: 3 }}>
@@ -31,13 +29,16 @@ const InventoryDashboardOverview = () => {
       >
         {[
           {
-            label: 'Total Items',
-            value: `${inventoryDashboardInfo?.totalItemsCount ?? 0} Items`,
-            subtext: 'Across All Warehouses'
+            label: 'Ukupan Broj Artikala',
+            value: `${inventoryDashboardInfo?.totalItemsCount ?? 0} Artikala`,
+            subtext: 'Ukupan broj artikala u skladištu'
           },
-          { label: 'Low Stock Items', value: inventoryDashboardInfo?.lowStockItemsCount ?? 0 },
-          { label: 'Inventory Value', value: formatCurrency(inventoryDashboardInfo?.totalInventoryValue ?? 0) },
-          { label: 'Categories', value: `${inventoryDashboardInfo?.totalCategoriesCount ?? 0} categories` }
+          { label: 'Artikli ispod minimalne vrijednoti', value: inventoryDashboardInfo?.lowStockItemsCount ?? 0 },
+          {
+            label: 'Ukupna vrijednost inventara',
+            value: formatCurrency(inventoryDashboardInfo?.totalInventoryValue ?? 0)
+          },
+          { label: 'Kategorije', value: `${inventoryDashboardInfo?.totalCategoriesCount ?? 0} kategorija` }
         ].map((cardProps, idx) => (
           <Box
             key={idx}

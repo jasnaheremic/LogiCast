@@ -9,13 +9,11 @@ const Sidebar = () => {
   return (
     <Box
       sx={{
-        backgroundColor: 'white',
+        backgroundColor: '#183B4E',
         display: 'flex',
         flexDirection: 'column',
-        m: '10px',
         p: '16px',
         boxShadow: 3,
-        borderRadius: '10px',
         flexWrap: 'wrap',
         overflow: 'hidden'
       }}
@@ -31,7 +29,9 @@ const Sidebar = () => {
             }
           }}
         >
-          <Typography>{t('title.logiCast')}</Typography>
+          <Typography color="white" fontWeight="200">
+            {t('title.logiCast')}
+          </Typography>
         </Box>
       </Grid>
       <Box
@@ -53,12 +53,14 @@ const Sidebar = () => {
       >
         <Avatar sx={{ mr: '8px' }}>JD</Avatar>
         <Box sx={{ overflow: 'hidden' }}>
-          <Typography variant="body2">Jane Doe</Typography>
+          <Typography color="white" variant="body2">
+            Jane Doe
+          </Typography>
           <Tooltip title="janedoe@email.com" placement="left-start">
             <Typography
               noWrap
               variant="caption"
-              color="textSecondary"
+              color="white"
               sx={{
                 display: 'block'
               }}
@@ -79,7 +81,7 @@ const Sidebar = () => {
         <Typography
           variant="body1"
           sx={{
-            color: 'black',
+            color: 'white',
             pl: '4px'
           }}
         >

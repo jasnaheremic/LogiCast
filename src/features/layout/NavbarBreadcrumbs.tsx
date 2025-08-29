@@ -36,7 +36,9 @@ const NavbarBreadcrumbs = () => {
     }
 
     return isLast ? (
-      <Typography variant="h6">{breadcrumbText}</Typography>
+      <Typography color="white" variant="h6">
+        {breadcrumbText}
+      </Typography>
     ) : (
       <Typography key={to} variant="h6">
         <Link style={{ textDecoration: 'none', color: 'grey' }} to={to}>

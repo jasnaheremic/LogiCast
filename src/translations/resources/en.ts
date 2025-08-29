@@ -7,9 +7,9 @@ const en = {
       signOut: 'Sign Out'
     },
     pages: {
-      dashboard: 'Dashboard',
-      inventory: 'Inventory',
-      warehouses: 'Warehouses'
+      dashboard: 'Kontrolna tabla',
+      inventory: 'Inventar',
+      warehouses: 'Skladišta'
     }
   }
 };

@@ -68,10 +68,10 @@ const AddEditWarehouseDialog = ({
     <CustomDialog
       isDialogOpen={isOpen}
       onClose={handleCancel}
-      title="Add Warehouse"
-      secondaryButton={{ buttonText: 'Cancel' }}
+      title="Dodaj Skladište"
+      secondaryButton={{ buttonText: 'Poništi' }}
       primaryButton={{
-        buttonText: warehouseToEdit ? 'Update' : 'Add',
+        buttonText: warehouseToEdit ? 'Uredi' : 'Dodaj',
         onAction: handleSubmit(handleFormSubmit)
       }}
     >
@@ -79,11 +79,11 @@ const AddEditWarehouseDialog = ({
         <Controller
           name="name"
           control={control}
-          rules={{ required: 'Warehouse name is required' }}
+          rules={{ required: 'Ime Skladista je obavezno' }}
           render={({ field }) => (
             <TextField
               {...field}
-              label="Warehouse Name"
+              label="Ime Skladišta"
               fullWidth
               error={!!errors.name}
               helperText={errors.name?.message}
@@ -93,11 +93,11 @@ const AddEditWarehouseDialog = ({
         <Controller
           name="location"
           control={control}
-          rules={{ required: 'Location is required' }}
+          rules={{ required: 'Adresa je obavezna' }}
           render={({ field }) => (
             <TextField
               {...field}
-              label="Location"
+              label="Adresa"
               fullWidth
               error={!!errors.location}
               helperText={errors.location?.message}
@@ -108,16 +108,16 @@ const AddEditWarehouseDialog = ({
           name="maxCapacity"
           control={control}
           rules={{
-            required: 'Max capacity is required',
+            required: 'Maksimalna kapacitet je obavezna',
             pattern: {
               value: /^[0-9]+$/,
-              message: 'Max capacity must be a number'
+              message: 'Maksimalna kapacitet mora biti pozitivan broj'
             }
           }}
           render={({ field }) => (
             <TextField
               {...field}
-              label="Max Capacity"
+              label="Maksimalna Kapacitet (m2)"
               fullWidth
               error={!!errors.maxCapacity}
               helperText={errors.maxCapacity?.message}

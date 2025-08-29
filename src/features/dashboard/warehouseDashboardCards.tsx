@@ -44,18 +44,14 @@ const WarehouseDashboardCard = ({ warehouse }: WarehouseCardProps) => {
           >
             <Typography variant="body2" sx={{ fontSize: 'inherit' }}>
               <Box component="span" display="block">
-                Capacity: {warehouse.capacityUsagePercent}%
-              </Box>
-              <Box component="span" display="block">
-                Low Stock:
-                {/*{warehouse.lowStockItems || 0} items*/}
+                Kapacitet: {warehouse.capacityUsagePercent}%
               </Box>
             </Typography>
           </Box>
         </CardContent>
         <CardActions sx={{ justifyContent: 'flex-end', p: 1 }}>
           <Button onClick={handleViewMore} size="small" variant="text" sx={{ fontSize: 12 }}>
-            View More
+            više detalja
           </Button>
         </CardActions>
       </Card>
