@@ -6,13 +6,10 @@ const Navbar = () => {
     <Box
       sx={{
         height: '50px',
-        backgroundColor: 'white',
+        backgroundColor: '#183B4E',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderRadius: '10px',
-        mx: '24px',
-        my: '12px',
         p: '5px',
         pl: '20px'
       }}

@@ -30,15 +30,15 @@ const SidebarItems = () => {
             textTransform: 'none',
             mb: '8px',
             borderRadius: '5px',
-            color: selectedIndex === index ? 'white' : 'grey',
+            color: selectedIndex === index ? 'grey' : 'white',
             backgroundColor: selectedIndex === index ? 'black' : 'transparent',
             '&:hover': {
               backgroundColor: 'grey',
               borderRadius: '5px'
             },
             '&.Mui-selected': {
-              color: 'white',
-              backgroundColor: 'black',
+              color: 'black',
+              backgroundColor: 'white',
               '&:hover': {
                 backgroundColor: 'grey'
               }
@@ -48,7 +48,7 @@ const SidebarItems = () => {
           <ListItemIcon
             sx={{
               minWidth: 'auto',
-              color: selectedIndex === index ? 'white' : 'black'
+              color: selectedIndex === index ? 'black' : 'white'
             }}
           >
             {<item.icon />}
@@ -56,7 +56,7 @@ const SidebarItems = () => {
           <Typography
             sx={{
               letterSpacing: '0.15px',
-              color: selectedIndex === index ? 'white' : 'black'
+              color: selectedIndex === index ? 'black' : 'white'
             }}
           >
             {item.text}

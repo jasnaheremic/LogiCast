@@ -6,11 +6,13 @@ import DashboardPage from './views/DashboardPage';
 import WarehousesPage from './views/WarehousesPage';
 import InventoryPage from './views/InventoryPage';
 import WarehouseInventoryPage from './views/WarehouseInventoryPage';
+import LoginPage from './views/LoginPage';
 
 const App = () => {
   return (
     <Router>
       <Routes>
+        <Route path={ROUTES.LOGIN} element={<LoginPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path={ROUTES.BASE_ROUTE} element={<DashboardPage />} />
           <Route path={ROUTES.DASHBOARD} element={<DashboardPage />} />

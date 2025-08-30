@@ -32,6 +32,7 @@ const AddEditInventoryDialog = ({
     control,
     handleSubmit,
     reset,
+    watch,
     formState: { errors }
   } = useForm<InventoryData>({
     defaultValues: {
@@ -86,10 +87,10 @@ const AddEditInventoryDialog = ({
     <CustomDialog
       isDialogOpen={isOpen}
       onClose={handleCancel}
-      title={inventoryItemToEdit ? 'Edit Inventory Item' : 'Add Inventory Item'}
-      secondaryButton={{ buttonText: 'Cancel' }}
+      title={inventoryItemToEdit ? 'Uredi Artikle Inventara' : 'Dodaj Artikal u Inventar'}
+      secondaryButton={{ buttonText: 'Poništi' }}
       primaryButton={{
-        buttonText: inventoryItemToEdit ? 'Update' : 'Add',
+        buttonText: inventoryItemToEdit ? 'Ažuriraj' : 'Dodaj',
         onAction: handleSubmit(handleFormSubmit)
       }}
     >
@@ -107,7 +108,7 @@ const AddEditInventoryDialog = ({
                 value={items.find(option => option.id === field.value) || null}
                 onChange={(_, value) => field.onChange(value?.id)}
                 renderInput={params => (
-                  <TextField {...params} label="Item" error={!!errors.itemId} helperText={errors.itemId?.message} />
+                  <TextField {...params} label="Artikal" error={!!errors.itemId} helperText={errors.itemId?.message} />
                 )}
               />
             )}
@@ -117,16 +118,30 @@ const AddEditInventoryDialog = ({
           name="quantity"
           control={control}
           rules={{
-            required: 'Quantity is required',
+            required: 'Količina je obavezna',
             pattern: {
               value: /^[0-9]+$/,
-              message: 'Quantity must be a number'
+              message: 'Količina mora biti broj'
+            },
+            validate: (quantity: number) => {
+              const minValue = watch('minValue');
+              const maxValue = watch('maxValue');
+
+              if (minValue && quantity < minValue) {
+                return 'Količina ne može biti manja od minimalne vrijednosti';
+              }
+
+              if (maxValue && quantity > maxValue) {
+                return 'Količina ne može biti veća od maksimalne vrijednosti';
+              }
+
+              return true;
             }
           }}
           render={({ field }) => (
             <TextField
               {...field}
-              label="Quantity"
+              label="Količina"
               fullWidth
               error={!!errors.quantity}
               helperText={errors.quantity?.message}
@@ -134,42 +149,58 @@ const AddEditInventoryDialog = ({
           )}
         />
         <Controller
-          name="maxValue"
+          name="minValue"
           control={control}
           rules={{
-            required: 'Max capacity is required',
+            required: 'Minimalna vrijednost je obavezna',
             pattern: {
               value: /^[0-9]+$/,
-              message: 'Max capacity must be a number'
+              message: 'Minimalna vrijednost mora biti broj'
+            },
+            validate: (minValue: number) => {
+              const maxValue = watch('maxValue');
+              if (maxValue && minValue > maxValue) {
+                return 'Minimalna vrijednost ne može biti veća od maksimalne';
+              }
+
+              return true;
             }
           }}
           render={({ field }) => (
             <TextField
               {...field}
-              label="Max Capacity"
+              label="Min Vrijednost"
               fullWidth
-              error={!!errors.maxValue}
-              helperText={errors.maxValue?.message}
+              error={!!errors.minValue}
+              helperText={errors.minValue?.message}
             />
           )}
         />
         <Controller
-          name="minValue"
+          name="maxValue"
           control={control}
           rules={{
-            required: 'Min value is required',
+            required: 'Maksimalna vrijednost je obavezna',
             pattern: {
               value: /^[0-9]+$/,
-              message: 'Min value must be a number'
+              message: 'Maksimalna vrijednost mora biti broj'
+            },
+            validate: (maxValue: number) => {
+              const minValue = watch('minValue');
+              if (minValue && maxValue < minValue) {
+                return 'Maksimalna vrijednost ne može biti manja od minimalne';
+              }
+
+              return true;
             }
           }}
           render={({ field }) => (
             <TextField
               {...field}
-              label="Min Value"
+              label="Max Vrijednost"
               fullWidth
-              error={!!errors.minValue}
-              helperText={errors.minValue?.message}
+              error={!!errors.maxValue}
+              helperText={errors.maxValue?.message}
             />
           )}
         />

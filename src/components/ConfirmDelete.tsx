@@ -31,11 +31,11 @@ const ConfirmDeleteDialog = ({
       onClose={onClose}
       title={title || t('confirmDeleteDialog.title', { name })}
       textColor={theme.palette.error.main}
-      secondaryButton={{ buttonText: t('CANCEL') }}
+      secondaryButton={{ buttonText: t('Poništi') }}
       {...(isDeleteButtonVisible && {
         primaryButton: {
           onAction: onConfirm,
-          buttonText: t('DELETE'),
+          buttonText: t('OBRIŠI'),
           buttonVariant: 'contained'
         }
       })}

@@ -6,16 +6,19 @@ import SidebarItems from './SidebarItems';
 const Sidebar = () => {
   const { t } = useTranslation();
 
+  const handleLogout = () => {
+    // Redirect to your .NET backend's logout endpoint
+    window.location.href = 'http://localhost:5000/api/AuthControllers/logout'; // Use your backend's port
+  };
+
   return (
     <Box
       sx={{
-        backgroundColor: 'white',
+        backgroundColor: '#183B4E',
         display: 'flex',
         flexDirection: 'column',
-        m: '10px',
         p: '16px',
         boxShadow: 3,
-        borderRadius: '10px',
         flexWrap: 'wrap',
         overflow: 'hidden'
       }}
@@ -31,7 +34,9 @@ const Sidebar = () => {
             }
           }}
         >
-          <Typography>{t('title.logiCast')}</Typography>
+          <Typography color="white" fontWeight="200">
+            {t('title.logiCast')}
+          </Typography>
         </Box>
       </Grid>
       <Box
@@ -53,23 +58,14 @@ const Sidebar = () => {
       >
         <Avatar sx={{ mr: '8px' }}>JD</Avatar>
         <Box sx={{ overflow: 'hidden' }}>
-          <Typography variant="body2">Jane Doe</Typography>
-          <Tooltip title="janedoe@email.com" placement="left-start">
-            <Typography
-              noWrap
-              variant="caption"
-              color="textSecondary"
-              sx={{
-                display: 'block'
-              }}
-            >
-              janedoe@email.com
-            </Typography>
-          </Tooltip>
+          <Typography color="white" variant="body2">
+            Admin
+          </Typography>
         </Box>
       </Box>
       <Divider variant="middle" />
       <Button
+        onClick={handleLogout}
         sx={{
           textTransform: 'none',
           justifyContent: 'flex-start',
@@ -79,7 +75,7 @@ const Sidebar = () => {
         <Typography
           variant="body1"
           sx={{
-            color: 'black',
+            color: 'white',
             pl: '4px'
           }}
         >

@@ -4,6 +4,7 @@ const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL;
 
 const ROUTES = {
   BASE_ROUTE: '/',
+  LOGIN: '/login',
   DASHBOARD: '/dashboard',
   INVENTORY: '/inventory',
   WAREHOUSES: '/warehouses',

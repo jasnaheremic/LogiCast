@@ -92,11 +92,7 @@ const WarehouseCard = ({ warehouse }: WarehouseCardProps) => {
           >
             <Typography variant="body2" sx={{ fontSize: 'inherit' }}>
               <Box component="span" display="block">
-                Size: {warehouse.maxCapacity}m2
-              </Box>
-              <Box component="span" display="block">
-                Low Stock:
-                {/*{warehouse.lowStockItems || 0} items*/}
+                Veličina: {warehouse.maxCapacity}m2
               </Box>
             </Typography>
           </Box>
@@ -109,17 +105,17 @@ const WarehouseCard = ({ warehouse }: WarehouseCardProps) => {
             <DeleteIcon />
           </IconButton>
           <Button onClick={handleViewMore} size="small" variant="text" sx={{ fontSize: 12 }}>
-            View More
+            Više detalja
           </Button>
         </CardActions>
       </Card>
       <ConfirmDeleteDialog
         isDialogOpen={isDeleteDialogOpen}
         onClose={handleCloseDeleteDialog}
-        title={`Delete item ${selectedWarehouse?.name}?`}
+        title={`Obriši skladište ${selectedWarehouse?.name}?`}
         onConfirm={handleConfirmDelete}
         name={selectedWarehouse?.name || ''}
-        message={`Are you sure you want to delete ${selectedWarehouse?.name}?`}
+        message={`Da li ste sigurni da želite obrisati ${selectedWarehouse?.name}?`}
       />
       <AddEditWarehouseDialog
         isOpen={isEditDialogOpen}

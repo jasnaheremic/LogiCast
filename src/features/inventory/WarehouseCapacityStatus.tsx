@@ -32,9 +32,9 @@ export const WarehouseCapacityStatus: React.FC = () => {
         }}
       >
         <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
-          <Typography variant="h6">Warehouse Status</Typography>
+          <Typography variant="h6">Status Skladišta</Typography>
           <Button onClick={handleViewMore} size="small" variant="text" sx={{ fontSize: 12 }}>
-            VIEW ALL
+            VIŠE
           </Button>
         </Stack>
         {warehouseCapacity?.slice(0, 3).map((warehouse, index) => (
@@ -58,7 +58,7 @@ export const WarehouseCapacityStatus: React.FC = () => {
                 />
               </Box>
               <Typography variant="body2" sx={{ minWidth: 60 }}>
-                {warehouse.capacityUsagePercent}% capacity
+                {warehouse.capacityUsagePercent}% kapaciteta
               </Typography>
             </Box>
           </Box>

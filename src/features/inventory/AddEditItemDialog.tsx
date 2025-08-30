@@ -78,10 +78,10 @@ const AddEditItemDialog = ({ isOpen, onClose, onAddItem, onUpdateItem, itemToEdi
     <CustomDialog
       isDialogOpen={isOpen}
       onClose={handleCancel}
-      title="Add Item"
-      secondaryButton={{ buttonText: 'Cancel' }}
+      title="Dodaj Artikal"
+      secondaryButton={{ buttonText: 'Poništi' }}
       primaryButton={{
-        buttonText: itemToEdit ? 'Update' : 'Add',
+        buttonText: itemToEdit ? 'Uredi' : 'Dodaj',
         onAction: handleSubmit(handleFormSubmit)
       }}
     >
@@ -90,12 +90,16 @@ const AddEditItemDialog = ({ isOpen, onClose, onAddItem, onUpdateItem, itemToEdi
           name="barcode"
           control={control}
           rules={{
-            required: 'Barcode is required'
+            required: 'Barkod je obavezan',
+            pattern: {
+              value: /^\d{10}$/,
+              message: 'Barkod mora sadržavati tačno 10 cifara'
+            }
           }}
           render={({ field }) => (
             <TextField
               {...field}
-              label="Barcode"
+              label="Barkod"
               fullWidth
               error={!!errors.barcode}
               helperText={errors.barcode?.message}
@@ -105,9 +109,15 @@ const AddEditItemDialog = ({ isOpen, onClose, onAddItem, onUpdateItem, itemToEdi
         <Controller
           name="name"
           control={control}
-          rules={{ required: 'Item name is required' }}
+          rules={{ required: 'Nazi artikla je obavezan' }}
           render={({ field }) => (
-            <TextField {...field} label="Item Name" fullWidth error={!!errors.name} helperText={errors.name?.message} />
+            <TextField
+              {...field}
+              label="Naziv Artikla"
+              fullWidth
+              error={!!errors.name}
+              helperText={errors.name?.message}
+            />
           )}
         />
         <Controller
@@ -124,7 +134,7 @@ const AddEditItemDialog = ({ isOpen, onClose, onAddItem, onUpdateItem, itemToEdi
               renderInput={params => (
                 <TextField
                   {...params}
-                  label="Category"
+                  label="Kategorija"
                   error={!!errors.categoryId}
                   helperText={errors.categoryId?.message}
                 />
@@ -135,7 +145,7 @@ const AddEditItemDialog = ({ isOpen, onClose, onAddItem, onUpdateItem, itemToEdi
         <Controller
           name="unit"
           control={control}
-          rules={{ required: 'Unit is required' }}
+          rules={{ required: 'Mjerna jedinica je obavezna' }}
           render={({ field }) => (
             <Autocomplete
               {...field}
@@ -145,7 +155,12 @@ const AddEditItemDialog = ({ isOpen, onClose, onAddItem, onUpdateItem, itemToEdi
               value={UNIT.find(unit => unit === field.value) || null}
               onChange={(_, value) => field.onChange(value)}
               renderInput={params => (
-                <TextField {...params} label="Unit" error={!!errors.unit} helperText={errors.unit?.message} />
+                <TextField
+                  {...params}
+                  label="Mjerna jedinica"
+                  error={!!errors.unit}
+                  helperText={errors.unit?.message}
+                />
               )}
             />
           )}
@@ -154,14 +169,14 @@ const AddEditItemDialog = ({ isOpen, onClose, onAddItem, onUpdateItem, itemToEdi
           name="price"
           control={control}
           rules={{
-            required: 'Price is required',
+            required: 'Cijena je obavezna',
             pattern: {
               value: /^[0-9]*[.,]?[0-9]+$/,
-              message: 'Price must be a valid number'
+              message: 'Cijena mora biti pozitivan broj'
             }
           }}
           render={({ field }) => (
-            <TextField {...field} label="Price" fullWidth error={!!errors.price} helperText={errors.price?.message} />
+            <TextField {...field} label="Cijena" fullWidth error={!!errors.price} helperText={errors.price?.message} />
           )}
         />
       </Box>
