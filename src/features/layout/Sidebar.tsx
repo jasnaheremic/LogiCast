@@ -6,6 +6,11 @@ import SidebarItems from './SidebarItems';
 const Sidebar = () => {
   const { t } = useTranslation();
 
+  const handleLogout = () => {
+    // Redirect to your .NET backend's logout endpoint
+    window.location.href = 'http://localhost:5000/api/AuthControllers/logout'; // Use your backend's port
+  };
+
   return (
     <Box
       sx={{
@@ -54,24 +59,13 @@ const Sidebar = () => {
         <Avatar sx={{ mr: '8px' }}>JD</Avatar>
         <Box sx={{ overflow: 'hidden' }}>
           <Typography color="white" variant="body2">
-            Jane Doe
+            Admin
           </Typography>
-          <Tooltip title="janedoe@email.com" placement="left-start">
-            <Typography
-              noWrap
-              variant="caption"
-              color="white"
-              sx={{
-                display: 'block'
-              }}
-            >
-              janedoe@email.com
-            </Typography>
-          </Tooltip>
         </Box>
       </Box>
       <Divider variant="middle" />
       <Button
+        onClick={handleLogout}
         sx={{
           textTransform: 'none',
           justifyContent: 'flex-start',
